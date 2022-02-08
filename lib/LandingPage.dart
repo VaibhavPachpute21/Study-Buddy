@@ -13,9 +13,9 @@ class LandingPage extends StatefulWidget {
 class _HomeScreenState extends State<LandingPage> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOption = [
-    HomePage(),
-    YTVideoPage(),
-    ToDoListPage()
+    const HomePage(),
+    const YTVideoPage(),
+    const ToDoListPage()
   ];
 
   @override
@@ -41,7 +41,6 @@ class _HomeScreenState extends State<LandingPage> {
 
   Widget bottomNav() {
     return BottomNavigationBar(
-
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
