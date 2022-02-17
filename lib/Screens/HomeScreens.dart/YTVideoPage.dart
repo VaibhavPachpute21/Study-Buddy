@@ -28,7 +28,12 @@ class _YTVideoPageState extends State<YTVideoPage> {
         preferredSize: Size.fromHeight(50),
         child: StudyBuddyAppBar(title: "YT Videos",),
       ),
-      body: Column(
+      body:loading? Center(
+        child: LinearProgressIndicator(
+              minHeight: 10,
+              value: progress,
+            ),
+      ): Column(
         children: [
           GFButton(
             color: Colors.amber,
@@ -114,7 +119,7 @@ Future<bool> saveVideo(String url, String fileName) async {
     });
     bool downloaded = await saveVideo(
         "$u",
-        "video");
+        "book ${DateTime.now()}.pdf");
     if (downloaded) {
       print("File Downloaded");
     } else {

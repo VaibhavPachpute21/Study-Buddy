@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Column(
             children: [
-              const Center(child: Text("Select Stream and Year of Study")),
+              const Center(child: Text("Select Stream and Year of Study",style:TextStyle(fontFamily: "ubuntu" ))),
               gridContainers(),
 
               MultiSelectChip(
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text(yearOfStudy[index]),
+                  child: Text(yearOfStudy[index], ),
                   decoration: BoxDecoration(
                       color: Colors.amber,
                       borderRadius: BorderRadius.circular(15)),

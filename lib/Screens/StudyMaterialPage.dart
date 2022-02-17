@@ -79,7 +79,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
               padding: const EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,MaterialPageRoute(builder:(context)=>StudyBuddyPDFViewer() ) );
+                  Navigator.push(context,MaterialPageRoute(builder:(context)=>StudyBuddyPDFViewer("https://www.kindacode.com/wp-content/uploads/2021/07/test.pdf") ) );
                 },
                 child: SizedBox(
                   width: 100,
