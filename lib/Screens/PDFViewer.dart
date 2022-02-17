@@ -43,7 +43,7 @@ class _StudyBuddyPDFViewerState extends State<StudyBuddyPDFViewer> {
           child: _isLoading
               ? Center(child: CircularProgressIndicator())
               : PDFViewer(document: _pdf)),
-      
+
     );
   }
 }

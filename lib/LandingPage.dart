@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:study_buddy/Screens/HomePage.dart';
-import 'package:study_buddy/Screens/ToDoListPage.dart';
-import 'package:study_buddy/Screens/YTVideoPage.dart';
+import 'package:study_buddy/CommonWidgets.dart';
+import 'package:study_buddy/Screens/HomeScreens.dart/HomePage.dart';
+import 'package:study_buddy/Screens/HomeScreens.dart/ToDoListPage.dart';
+import 'package:study_buddy/Screens/HomeScreens.dart/YTVideoPage.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class LandingPage extends StatefulWidget {
 
 class _HomeScreenState extends State<LandingPage> {
   int _selectedIndex = 0;
+  int _currentIndex = 0;
+  final _inactiveColor = Colors.grey;
   final List<Widget> _widgetOption = [
     const HomePage(),
     const YTVideoPage(),
@@ -33,13 +36,14 @@ class _HomeScreenState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _widgetOption.elementAt(_selectedIndex),
+        child: _widgetOption.elementAt(_currentIndex),
       ),
-      bottomNavigationBar: bottomNav(),
+      bottomNavigationBar:_buildBottomBar(),
+     // bottomNavigationBar: bottomNav(),
     );
   }
 
-  Widget bottomNav() {
+  Widget odlBottomNav() {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -63,4 +67,43 @@ class _HomeScreenState extends State<LandingPage> {
       elevation: 5,
     );
   }
+
+Widget _buildBottomBar(){
+    return CustomAnimatedBottomBar(
+      containerHeight: 70,
+      backgroundColor: Colors.black,
+      selectedIndex: _currentIndex,
+      showElevation: true,
+      itemCornerRadius: 24,
+      curve: Curves.easeIn,
+      onItemSelected: (index) => setState(() => _currentIndex = index),
+      items: <BottomNavyBarItem>[
+        BottomNavyBarItem(
+          icon: const Icon(Icons.home),
+          title: const Text('Home'),
+          activeColor: Colors.green,
+          inactiveColor: _inactiveColor,
+          textAlign: TextAlign.center,
+        ),
+        BottomNavyBarItem(
+          icon: const Icon(Icons.ondemand_video),
+          title: const Text('YT Video'),
+          activeColor: Colors.purpleAccent,
+          inactiveColor: _inactiveColor,
+          textAlign: TextAlign.center,
+        ),
+        BottomNavyBarItem(
+          icon: const Icon(Icons.list_alt_outlined),
+          title: const Text(
+            "MyToDo's",
+          ),
+          activeColor: Colors.pink,
+          inactiveColor: _inactiveColor,
+          textAlign: TextAlign.center,
+         ),
+      ],
+    );
+  }
+
+
 }
