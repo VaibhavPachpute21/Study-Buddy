@@ -15,6 +15,11 @@ class _HomeScreenState extends State<LandingPage> {
   int _selectedIndex = 0;
   int _currentIndex = 0;
   final _inactiveColor = Colors.grey;
+  final List<String> _appBarTiltles=[
+    "Home",
+    "YT Videos",
+    "My ToDo's"
+  ];
   final List<Widget> _widgetOption = [
     const HomePage(),
     const YTVideoPage(),
@@ -35,6 +40,10 @@ class _HomeScreenState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title:Text(_appBarTiltles[_currentIndex].toString(),style: TextStyle(fontFamily: "roboto",fontSize:24, ),) ,
+      ),
       body: Center(
         child: _widgetOption.elementAt(_currentIndex),
       ),
@@ -71,7 +80,7 @@ class _HomeScreenState extends State<LandingPage> {
 Widget _buildBottomBar(){
     return CustomAnimatedBottomBar(
       containerHeight: 70,
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       selectedIndex: _currentIndex,
       showElevation: true,
       itemCornerRadius: 24,
@@ -81,7 +90,7 @@ Widget _buildBottomBar(){
         BottomNavyBarItem(
           icon: const Icon(Icons.home),
           title: const Text('Home'),
-          activeColor: Colors.green,
+          activeColor: Colors.blue,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),

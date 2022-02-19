@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/PDFViewer.dart';
+import 'package:study_buddy/Screens/pdfView2.dart';
 
 class StudyMaterialListPage extends StatefulWidget {
   final int subject;
@@ -18,25 +20,18 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: StudyBuddyAppBar(
-            title: "Study Materials",
+            title: "Course Material",
           )),
-      body: ListView(
-        children: [
-          Container(
-              child:
-                  Center(child: Text("Subject " + widget.subject.toString()))),
-          Column(
+      body: Column(
             children: [
-              const Text("Books"),
-              const Divider(thickness: 1,),
+              Center(child: Text( "Subject at index " + widget.subject.toString(),style: AppTheme.pageHeading1, )),
+               Text("Books",style:AppTheme.pageHeading2,),
               booksList(),
-              const Text("Notes"),
+               Text("Notes",style: AppTheme.pageHeading2,),
               notesList()
             ],
           )
-        ],
-      ),
-    );
+      );
   }
 
   booksList() {
@@ -45,19 +40,24 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 4,
-          padding: const EdgeInsets.all(5),
+          padding:  EdgeInsets.all(5),
           itemBuilder: (contex, index) {
             return Padding(
-              padding: const EdgeInsets.all(2.0),
+              padding:  EdgeInsets.all(2.0),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
+                },
                 child: SizedBox(
                   width: 100,
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text("Book $index"),
+                    child: Padding(
+                      padding:  EdgeInsets.all(2.0),
+                      child: Text("Book name at index value $index",style: AppTheme.containText1,),
+                    ),
                     decoration: BoxDecoration(
-                        color: Colors.amber,
+                        color: Colors.amber.shade200,
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
@@ -79,15 +79,18 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
               padding: const EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,MaterialPageRoute(builder:(context)=>StudyBuddyPDFViewer("https://www.kindacode.com/wp-content/uploads/2021/07/test.pdf") ) );
+                   //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage2()) );
                 },
                 child: SizedBox(
                   width: 100,
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text("NotesPDF $index"),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text("NotesPDF name at index value $index",style: AppTheme.containText2,),
+                    ),
                     decoration: BoxDecoration(
-                        color: Colors.amber,
+                        color: Colors.amber.shade200,
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),

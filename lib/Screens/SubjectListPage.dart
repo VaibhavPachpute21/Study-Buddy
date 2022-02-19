@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/StudyMaterialPage.dart';
 
@@ -19,63 +20,54 @@ class _SubjectListPageState extends State<SubjectListPage> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: StudyBuddyAppBar(
-            title: "Subjects",
+            title: "Choose Course",
           )),
-      body: ListView(
+      body: Column(
         children: [
-          const SizedBox(
-            height: 5,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.amber, borderRadius: BorderRadius.circular(5)),
-            width: MediaQuery.of(context).size.width,
-            height: 25,
-            child: Center(
-                child: Text(
-                    widget.dept.toString() + " " + widget.year.toString())),
-          ),
+          Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Subjects for:\n"+widget.year.toString() + " " + widget.dept.toString(),style: AppTheme.pageHeading1,),
+              )),
+          
           gridContainers(),
         ],
+        
       ),
     );
   }
 
   Widget gridContainers() {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * .8,
+    return Expanded(
       child: Container(
         margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.red,
-            ),
-            borderRadius: BorderRadius.circular(15)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-              scrollDirection: Axis.vertical,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              itemCount: 12,
-              itemBuilder: (BuildContext ctx, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder:(context)=>StudyMaterialListPage(subject:index) ) );
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text("Subject $index"),
-                    decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
-                );
-              }),
-        ),
+        // decoration: BoxDecoration(
+        //     border: Border.all(
+        //       //color: Colors.grey,
+        //     ),
+        //     borderRadius: BorderRadius.circular(15)),
+        child: GridView.builder(
+            scrollDirection: Axis.vertical,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10),
+            itemCount: 12,
+            itemBuilder: (BuildContext ctx, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.push(context,MaterialPageRoute(builder:(context)=>StudyMaterialListPage(subject:index) ) );
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text("Subject $index",style: TextStyle(fontFamily: "roboto"),),
+                  decoration: BoxDecoration(
+                      color: Colors.amber.shade200,
+                      borderRadius: BorderRadius.circular(15)),
+                ),
+              );
+            }),
       ),
     );
   }

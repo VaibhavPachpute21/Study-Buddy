@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:study_buddy/CommonWidgets.dart';
+import 'package:http/http.dart' as http;
+import 'package:study_buddy/Screens/pdfView2.dart';
 
 class YTVideoPage extends StatefulWidget {
   const YTVideoPage({Key? key}) : super(key: key);
@@ -15,40 +16,78 @@ class YTVideoPage extends StatefulWidget {
 }
 
 class _YTVideoPageState extends State<YTVideoPage> {
-  String u='https://www.kindacode.com/wp-content/uploads/2021/07/test.pdf';
+  String u = 'https://www.kindacode.com/wp-content/uploads/2021/07/test.pdf';
   final Dio dio = Dio();
   bool loading = false;
   double progress = 0;
+  late File pdfFile;
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:const PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: StudyBuddyAppBar(title: "YT Videos",),
-      ),
-      body:loading? Center(
-        child: LinearProgressIndicator(
-              minHeight: 10,
-              value: progress,
+      body: loading
+          ? Center(
+              child: LinearProgressIndicator(
+                minHeight: 10,
+                value: progress,
+              ),
+            )
+          : Column(
+              children: [
+                Center(
+                  child: GFButton(
+                    onPressed: () {
+                      testing();
+                    },
+                    text: "testing",
+                  ),
+                ),
+                GFButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage2(pfile:pdfFile)));
+                }),
+                GFButton(
+                  color: Colors.amber,
+                  text: "Create DIR",
+                  onPressed: () {
+                    downloadFile(u);
+                  },
+                )
+              ],
             ),
-      ): Column(
-        children: [
-          GFButton(
-            color: Colors.amber,
-            text: "Create DIR",
-          onPressed: (){
-            downloadFile(u);
-          },
-        )
-        ],
-      ),
     );
   }
 
+  testing() async {
+    final response = await http.get(Uri.parse(u));
+    final bytes = response.bodyBytes;
+    var dir = await getExternalStorageDirectory();
+    List paths = dir!.path.split("/");
+    print(paths);
+    print(dir);
+    String newPath = "";
+    for (int x = 1; x < paths.length; x++) {
+      String folder = paths[x];
+      if (folder != "Android") {
+        newPath += "/" + folder;
+      } else {
+        break;
+      }
+    }
+    newPath = newPath + "/StudyBuddy";
+    dir = Directory(newPath);
+    print(dir);
+    final filename = u.substring(u.lastIndexOf("/") + 1);
+    File file = File(dir.path + "/$filename");
+    print(file.path);
+    await file.writeAsBytes(bytes, flush: true);
 
-Future<bool> saveVideo(String url, String fileName) async {
+  setState(() {
+    pdfFile=file;
+  });
+    
+  }
+
+  Future<bool> saveVideo(String url, String fileName) async {
     Directory directory;
     try {
       if (Platform.isAndroid) {
@@ -77,17 +116,20 @@ Future<bool> saveVideo(String url, String fileName) async {
           return false;
         }
       }
-      File saveFile = File(directory.path + "/$fileName");
+      final filename = url.substring(url.lastIndexOf("/") + 1);
+      File saveFile = File(directory.path + "/$filename");
+      print(saveFile.path);
       if (!await directory.exists()) {
         await directory.create(recursive: true);
       }
       if (await directory.exists()) {
         await dio.download(url, saveFile.path,
             onReceiveProgress: (value1, value2) {
-              setState(() {
-                progress = value1 / value2;
-              });
-            });
+          setState(() {
+            progress = value1 / value2;
+          });
+        });
+
         if (Platform.isIOS) {
           print("platform IOS");
         }
@@ -117,9 +159,7 @@ Future<bool> saveVideo(String url, String fileName) async {
       loading = true;
       progress = 0;
     });
-    bool downloaded = await saveVideo(
-        "$u",
-        "book ${DateTime.now()}.pdf");
+    bool downloaded = await saveVideo("$u", "book ${DateTime.now()}.pdf");
     if (downloaded) {
       print("File Downloaded");
     } else {
@@ -129,12 +169,4 @@ Future<bool> saveVideo(String url, String fileName) async {
       loading = false;
     });
   }
-
-
-
-
-
 }
-
-
-

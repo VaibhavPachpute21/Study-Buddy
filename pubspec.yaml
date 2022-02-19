@@ -38,6 +38,9 @@ dependencies:
   dio: ^4.0.4
   path_provider: ^2.0.9
   permission_handler: ^9.0.1
+  syncfusion_flutter_pdfviewer: ^19.4.52-beta
+  advance_pdf_viewer: ^2.0.1
+  http: ^0.13.4
 
 
 dev_dependencies:
@@ -89,6 +92,8 @@ flutter:
     - family: roboto
       fonts:
         - asset: assets/fonts/Roboto-Medium.ttf
+    - family: robotomono
+      fonts:
         - asset: assets/fonts/RobotoMono-Medium.ttf
           weight: 700
     - family: ubuntu
