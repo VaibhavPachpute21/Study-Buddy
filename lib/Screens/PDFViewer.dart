@@ -20,22 +20,12 @@ class _PDFViewerPage extends State<PDFViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Syncfusion Flutter PDF Viewer'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark,
-              color: Colors.white,
-              semanticLabel: 'Bookmark',
-            ),
-            onPressed: () {
-              _pdfViewerKey.currentState?.openBookmarkView();
-            },
-          ),
-        ],
+        title: const Text('Study Buddy'),
       ),
       body: SfPdfViewer.network(
-        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+
+        "https://raw.githubusercontent.com/VaibhavPachpute21/PDFs/main/Bhagwad%20Geeta%20In%20Marathi_pdfa.pdf",
+//'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
         key: _pdfViewerKey,
       ),
     );

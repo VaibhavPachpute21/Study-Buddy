@@ -37,13 +37,6 @@ class _PDFViewerPage2State extends State<PDFViewerPage2> {
     } else if (value == 2) {
       document = await PDFDocument.fromURL(
         "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
-        /* cacheManager: CacheManager(
-          Config(
-            "customCacheKey",
-            stalePeriod: const Duration(days: 2),
-            maxNrOfCacheObjects: 10,
-          ),
-        ), */
       );
     } else {
       document = await PDFDocument.fromAsset('assets/sample.pdf');

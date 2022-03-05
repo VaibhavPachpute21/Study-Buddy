@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/CommonWidgets.dart';
-import 'package:study_buddy/Screens/HomeScreens.dart/HomePage.dart';
-import 'package:study_buddy/Screens/HomeScreens.dart/ToDoListPage.dart';
-import 'package:study_buddy/Screens/HomeScreens.dart/YTVideoPage.dart';
+import 'package:study_buddy/Screens/Home/HomePage.dart';
+import 'package:study_buddy/Screens/Home/ToDoListPage.dart';
+import 'package:study_buddy/Screens/Home/YTVideoPage.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<LandingPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title:Text(_appBarTiltles[_currentIndex].toString(),style: TextStyle(fontFamily: "roboto",fontSize:24, ),) ,
+        title:Text( "Study Buddy"  /*_appBarTiltles[_currentIndex].toString()*/,style: TextStyle(fontFamily: "roboto",fontSize:24, ),) ,
       ),
       body: Center(
         child: _widgetOption.elementAt(_currentIndex),

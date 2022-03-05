@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/PDFViewer.dart';
+import 'package:study_buddy/Screens/WebViewScreen.dart';
 import 'package:study_buddy/Screens/pdfView2.dart';
 
 class StudyMaterialListPage extends StatefulWidget {
@@ -79,6 +80,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
               padding: const EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage2()) );
                 },
                 child: SizedBox(

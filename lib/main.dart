@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/LandingPage.dart';
 
-void main() {
+Future main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
