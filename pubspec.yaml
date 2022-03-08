@@ -41,6 +41,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^19.4.52-beta
   advance_pdf_viewer: ^2.0.1
   http: ^0.13.4
+  url_launcher: ^6.0.20
   webview_flutter: ^3.0.1
 
 

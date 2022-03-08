@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
-import 'package:study_buddy/Screens/StudyMaterialPage.dart';
+import 'package:study_buddy/Screens/Home/StudyMaterialPage.dart';
+
 
 class SubjectListPage extends StatefulWidget {
   final String? dept;
@@ -14,6 +15,9 @@ class SubjectListPage extends StatefulWidget {
 }
 
 class _SubjectListPageState extends State<SubjectListPage> {
+
+List<String> semister=[];
+   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +33,36 @@ class _SubjectListPageState extends State<SubjectListPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text("Subjects for:\n"+widget.year.toString() + " " + widget.dept.toString(),style: AppTheme.pageHeading1,),
               )),
-          
+           
+               Container(
+                 margin: EdgeInsets.only(left: 20,right: 20),
+                 decoration: BoxDecoration(
+                   border: Border.all(),
+                   borderRadius: BorderRadius.circular(50)
+                 ),
+                 child: DropdownButtonFormField<String>(
+                       decoration: InputDecoration(
+                        border: InputBorder.none,
+                         contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 20)
+
+                        ),
+                      hint: Text('Select Sender', ),
+                      isExpanded: true,
+                      items: semister.map((String value) {
+                        return DropdownMenuItem<String>(
+
+                          value: value,
+                          child: new Text(
+
+                            value,
+                           
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (val) {print(val);},
+                    ),
+               ),
+               
           gridContainers(),
         ],
         

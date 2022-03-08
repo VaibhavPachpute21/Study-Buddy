@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
-import 'package:study_buddy/Screens/PDFViewer.dart';
-import 'package:study_buddy/Screens/WebViewScreen.dart';
-import 'package:study_buddy/Screens/pdfView2.dart';
+import 'package:study_buddy/Screens/Home/PDFViewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StudyMaterialListPage extends StatefulWidget {
   final int subject;
@@ -80,7 +79,8 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
               padding: const EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
+                  opentDriveLink();
+                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage2()) );
                 },
                 child: SizedBox(
@@ -100,6 +100,16 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
             );
           }),
     );
+  }
+
+  opentDriveLink() async{
+     const url = 'https://drive.google.com/file/d/1Zj2dcKG5TZ0PQdMexJVx8NH5yFk7xS8W/view?usp=sharing';
+
+              if (await canLaunch(url)) {
+                await launch(url, forceSafariVC: false);
+              } else {
+                throw 'Could not launch $url';
+              }
   }
 
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
-import 'package:study_buddy/Screens/SubjectListPage.dart';
+import 'package:study_buddy/Screens/Home/SubjectListPage.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> departmentList = [
-    "COMPUTER/IT",
+    "COMPUTER",
     "CIVIL",
     "MECHANICAL",
     "ELECTRICAL",
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
       },
       items: <CustomChoiceChipBarItem>[
         CustomChoiceChipBarItem(
-            title: 'COMPUTER/IT',
+            title: 'COMPUTER',
             icon: Image.asset("./assets/images/cse.png",color: _iconColor,),
             activeColor: _activeColor,
             inactiveColor: _inactiveColor),

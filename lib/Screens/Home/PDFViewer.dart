@@ -25,7 +25,6 @@ class _PDFViewerPage extends State<PDFViewerPage> {
       body: SfPdfViewer.network(
 
         "https://raw.githubusercontent.com/VaibhavPachpute21/PDFs/main/Bhagwad%20Geeta%20In%20Marathi_pdfa.pdf",
-//'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
         key: _pdfViewerKey,
       ),
     );

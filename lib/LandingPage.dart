@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/HomePage.dart';
-import 'package:study_buddy/Screens/Home/ToDoListPage.dart';
-import 'package:study_buddy/Screens/Home/YTVideoPage.dart';
+import 'package:study_buddy/Screens/ToDoListPage.dart';
+import 'package:study_buddy/Screens/YTVideoPage.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -15,11 +15,7 @@ class _HomeScreenState extends State<LandingPage> {
   int _selectedIndex = 0;
   int _currentIndex = 0;
   final _inactiveColor = Colors.grey;
-  final List<String> _appBarTiltles=[
-    "Home",
-    "YT Videos",
-    "My ToDo's"
-  ];
+ 
   final List<Widget> _widgetOption = [
     const HomePage(),
     const YTVideoPage(),
@@ -42,38 +38,13 @@ class _HomeScreenState extends State<LandingPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title:Text( "Study Buddy"  /*_appBarTiltles[_currentIndex].toString()*/,style: TextStyle(fontFamily: "roboto",fontSize:24, ),) ,
+        title:Text( "Study Buddy",style: TextStyle(fontFamily: "roboto",fontSize:24, ),) ,
       ),
       body: Center(
         child: _widgetOption.elementAt(_currentIndex),
       ),
       bottomNavigationBar:_buildBottomBar(),
      // bottomNavigationBar: bottomNav(),
-    );
-  }
-
-  Widget odlBottomNav() {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.ondemand_video), label: "YT Video"),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.list_alt_outlined),
-          label: "My ToDo's",
-        ),
-      ],
-      backgroundColor: Colors.blue,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.grey,
-      type: BottomNavigationBarType.shifting,
-      currentIndex: _selectedIndex,
-      iconSize: 30,
-      onTap: _onItemTapped,
-      elevation: 5,
     );
   }
 
