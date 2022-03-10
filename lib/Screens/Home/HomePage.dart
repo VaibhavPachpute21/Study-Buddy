@@ -21,10 +21,10 @@ class _HomePageState extends State<HomePage> {
     "ELECTRONIC"
   ];
    List<String> yearOfStudy = [
-    "FIRST YEAR",
-    "SECOND YEAR",
-    "THIRD YEAR",
-    "LAST YEAR"
+    "First Year",
+    "Second Year",
+    "Third Year",
+    "Last Year"
   ];
     final _inactiveColor = Colors.transparent;
     final _iconColor=Colors.black;

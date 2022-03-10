@@ -5,8 +5,8 @@ import 'package:study_buddy/Screens/Home/PDFViewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StudyMaterialListPage extends StatefulWidget {
-  final int subject;
-  const StudyMaterialListPage({Key? key, required this.subject})
+  final List<dynamic> books;
+  const StudyMaterialListPage({Key? key, required this.books})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
           )),
       body: Column(
             children: [
-              Center(child: Text( "Subject at index " + widget.subject.toString(),style: AppTheme.pageHeading1, )),
+              Center(child: Text( "Subject",style: AppTheme.pageHeading1, )),
                Text("Books",style:AppTheme.pageHeading2,),
               booksList(),
                Text("Notes",style: AppTheme.pageHeading2,),
@@ -36,25 +36,26 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
 
   booksList() {
     return SizedBox(
-      height: 150,
+      height: 200,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 4,
+          itemCount: widget.books.length,
           padding:  EdgeInsets.all(5),
           itemBuilder: (contex, index) {
             return Padding(
               padding:  EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
+                   opentDriveLink(widget.books[index]["url"]);
+                  //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
                 },
                 child: SizedBox(
-                  width: 100,
+                  width: 150,
                   child: Container(
                     alignment: Alignment.center,
                     child: Padding(
                       padding:  EdgeInsets.all(2.0),
-                      child: Text("Book name at index value $index",style: AppTheme.containText1,),
+                      child: Text(widget.books[index]["name"].toString(),style: AppTheme.containText1,),
                     ),
                     decoration: BoxDecoration(
                         color: Colors.amber.shade200,
@@ -72,16 +73,14 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
       height: 150,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 4,
+          itemCount: widget.books.length,
           padding: const EdgeInsets.all(5),
           itemBuilder: (contex, index) {
             return Padding(
               padding: const EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
-                  opentDriveLink();
-                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
-                   //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage2()) );
+                  opentDriveLink(widget.books[index]["url"]);
                 },
                 child: SizedBox(
                   width: 100,
@@ -102,8 +101,8 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
     );
   }
 
-  opentDriveLink() async{
-     const url = 'https://drive.google.com/file/d/1Zj2dcKG5TZ0PQdMexJVx8NH5yFk7xS8W/view?usp=sharing';
+  opentDriveLink(url) async{
+    // const url = 'https://drive.google.com/file/d/1Zj2dcKG5TZ0PQdMexJVx8NH5yFk7xS8W/view?usp=sharing';
 
               if (await canLaunch(url)) {
                 await launch(url, forceSafariVC: false);

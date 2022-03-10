@@ -18,8 +18,10 @@ class YTVideoPage extends StatefulWidget {
 }
 
 class _YTVideoPageState extends State<YTVideoPage> {
+  
   //String u = 'https://drive.google.com/file/d/1m5L5oHvyqCjGPnvBqILbokzSNrxetvKy/view?usp=sharing';
-  String u ="https://drive.google.com/uc?id=1m5L5oHvyqCjGPnvBqILbokzSNrxetvKy&export=download";
+  String u ="https://drive.google.com/uc?id=18m2_-JzIBhXHvxajAQ5wQxIr_dAjj-L0&export=download";
+         
   final Dio dio = Dio();
   bool loading = false;
   double progress = 0;
@@ -41,9 +43,12 @@ class _YTVideoPageState extends State<YTVideoPage> {
                 Center(
                   child: GFButton(
                     onPressed: () async {
-                    var res = await StudyBuddyApis().getAllData("COMPUTER","Second Year","Fourth Semister");
-
+                    var res = await StudyBuddyApis().getAllData("COMPUTER","Second Year","Fourth Semester");
                       print(res.length );
+                      for(int i=0;i<res.length;i++){
+                        print(res[i]["subject"]);
+                        //print(res[i]["books"][0]["url"].toString().replaceAll("https://drive.google.com/file/d/", "").replaceAll("/view?usp=sharing", ""));
+                      }
 
 
                     },
@@ -118,7 +123,6 @@ class _YTVideoPageState extends State<YTVideoPage> {
   //   File file = File(dir.path + "/$filename");
   //   print(file.path);
   //   await file.writeAsBytes(bytes, flush: true);
-
   // setState(() {
   //   pdfFile=file;
   // });
