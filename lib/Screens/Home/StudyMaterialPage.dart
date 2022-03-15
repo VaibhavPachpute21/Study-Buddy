@@ -3,6 +3,7 @@ import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/PDFViewer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:study_buddy/global.dart' as global;
 
 class StudyMaterialListPage extends StatefulWidget {
   final List<dynamic> books;
@@ -28,7 +29,14 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
                Text("Books",style:AppTheme.pageHeading2,),
               booksList(),
                Text("Notes",style: AppTheme.pageHeading2,),
-              notesList()
+              notesList(),
+              Text("Syllabus"),
+              Container(child: InkWell(
+                child: Icon(Icons.picture_as_pdf,size: 100,),
+                onTap: (){
+                  opentDriveLink(global.syllabus.toString());
+                },
+              ),),
             ],
           )
       );
@@ -100,6 +108,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
           }),
     );
   }
+
 
   opentDriveLink(url) async{
     // const url = 'https://drive.google.com/file/d/1Zj2dcKG5TZ0PQdMexJVx8NH5yFk7xS8W/view?usp=sharing';

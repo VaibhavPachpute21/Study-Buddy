@@ -1,0 +1,3 @@
+library global;
+
+String syllabus='';

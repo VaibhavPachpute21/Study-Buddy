@@ -3,6 +3,7 @@ import 'package:study_buddy/APIs/Api.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/StudyMaterialPage.dart';
+import 'package:study_buddy/global.dart' as global;
 
 class SubjectListPage extends StatefulWidget {
   final String? dept;
@@ -55,7 +56,7 @@ class _SubjectListPageState extends State<SubjectListPage> {
       subjectsData=[];
     });
     subjectsData.addAll(res);
-
+    print(global.syllabus);
     print(res.length);
     setState(() {
       isLoading = false;
