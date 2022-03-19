@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/SubjectListPage.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,22 +20,22 @@ class _HomePageState extends State<HomePage> {
     "ELECTRICAL",
     "ELECTRONIC"
   ];
-   List<String> yearOfStudy = [
+  List<String> yearOfStudy = [
     "First Year",
     "Second Year",
     "Third Year",
     "Last Year"
   ];
-    final _inactiveColor = Colors.transparent;
-    final _iconColor=Colors.black;
-    final _activeColor=Colors.black;
+  final _inactiveColor = Colors.transparent;
+  final _iconColor = Colors.black;
+  final _activeColor = Colors.black;
   int _currentIndex = 0;
   String? selectedYear;
   String? selectedDept;
- 
- @override
+
+  @override
   void initState() {
-    selectedDept=departmentList[_currentIndex];
+    selectedDept = departmentList[_currentIndex];
     super.initState();
   }
 
@@ -46,19 +46,26 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           Column(
-             children: [
-               Text("Selected Stream ",style:AppTheme.pageHeading1,),
-               Text(departmentList[_currentIndex].toString(),style:AppTheme.pageHeading1)
-             ],
-           ),
+          Column(
+            children: [
+              Text(
+                "Selected Stream ",
+                style: GoogleFonts.ibmPlexSans(
+                    fontSize: 22, fontWeight: FontWeight.w400),
+              ),
+              Text(
+                departmentList[_currentIndex].toString(),
+                style: GoogleFonts.ibmPlexSans(
+                    fontSize: 22, fontWeight: FontWeight.w500),
+              )
+            ],
+          ),
           Column(
             children: [
               gridContainers(),
               _choicechip(),
             ],
           ),
-                      
         ],
       ),
     );
@@ -70,7 +77,6 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
-
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 childAspectRatio: 3 / 2,
@@ -79,13 +85,14 @@ class _HomePageState extends State<HomePage> {
             itemCount: yearOfStudy.length,
             itemBuilder: (BuildContext ctx, index) {
               return InkWell(
-              
                 onTap: () {
                   if (selectedDept != null) {
                     setState(() {
                       selectedYear = yearOfStudy[index];
                     });
-                    showToastMSG(selectedDept.toString()+" "+selectedYear.toString());
+                    showToastMSG(selectedDept.toString() +
+                        " " +
+                        selectedYear.toString());
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -99,7 +106,10 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  child: Text(yearOfStudy[index],style: AppTheme.containText1, ),
+                  child: Text(
+                    yearOfStudy[index],
+                    style: GoogleFonts.robotoMono(fontSize: 18,fontStyle: FontStyle.normal,fontWeight: FontWeight.w400 ),
+                  ),
                   decoration: BoxDecoration(
                       color: Colors.orange.shade100,
                       borderRadius: BorderRadius.circular(15)),
@@ -110,7 +120,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   _choicechip() {
     return CustomChoiceChip(
       animationDuration: Duration(milliseconds: 350),
@@ -120,42 +129,55 @@ class _HomePageState extends State<HomePage> {
       onItemSelected: (index) {
         setState(() => _currentIndex = index);
         print(departmentList[_currentIndex]);
-        selectedDept=departmentList[_currentIndex];
+        selectedDept = departmentList[_currentIndex];
       },
       items: <CustomChoiceChipBarItem>[
         CustomChoiceChipBarItem(
             title: 'COMPUTER',
-            icon: Image.asset("./assets/images/cse.png",color: _iconColor,),
+            icon: Image.asset(
+              "./assets/images/cse.png",
+              color: _iconColor,
+            ),
             activeColor: _activeColor,
             inactiveColor: _inactiveColor),
         CustomChoiceChipBarItem(
             title: 'CIVIL',
-            icon: Image.asset("./assets/images/ce.png",color: _iconColor,),
+            icon: Image.asset(
+              "./assets/images/ce.png",
+              color: _iconColor,
+            ),
             activeColor: _activeColor,
             inactiveColor: _inactiveColor),
         CustomChoiceChipBarItem(
             title: 'MECHANICAL',
-            icon: Image.asset("./assets/images/me.png",color: _iconColor,),
+            icon: Image.asset(
+              "./assets/images/me.png",
+              color: _iconColor,
+            ),
             activeColor: _activeColor,
             inactiveColor: _inactiveColor),
         CustomChoiceChipBarItem(
             title: 'ELECTRICAL',
-            icon: Image.asset("./assets/images/ee.png",color: _iconColor,),
+            icon: Image.asset(
+              "./assets/images/ee.png",
+              color: _iconColor,
+            ),
             activeColor: _activeColor,
             inactiveColor: _inactiveColor),
         CustomChoiceChipBarItem(
             title: 'ELECTRONIC',
-            icon: Image.asset("./assets/images/ece.png",color: _iconColor,),
+            icon: Image.asset(
+              "./assets/images/ece.png",
+              color: _iconColor,
+            ),
             activeColor: _activeColor,
             inactiveColor: _inactiveColor),
       ],
     );
   }
 
-
   showToastMSG(msg) {
     return GFToast.showToast("$msg", context,
         toastPosition: GFToastPosition.BOTTOM);
   }
-
 }

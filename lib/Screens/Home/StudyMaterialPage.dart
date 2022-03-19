@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/PDFViewer.dart';
@@ -7,7 +9,8 @@ import 'package:study_buddy/global.dart' as global;
 
 class StudyMaterialListPage extends StatefulWidget {
   final List<dynamic> books;
-  const StudyMaterialListPage({Key? key, required this.books})
+  final String subjectName;
+  const StudyMaterialListPage({Key? key, required this.books, required this.subjectName})
       : super(key: key);
 
   @override
@@ -21,21 +24,28 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: StudyBuddyAppBar(
-            title: "Course Material",
+            title: "Study Material",
           )),
       body: Column(
             children: [
-              Center(child: Text( "Subject",style: AppTheme.pageHeading1, )),
-               Text("Books",style:AppTheme.pageHeading2,),
+              Container(padding: EdgeInsets.only(left: 2,right: 2, top: 5,bottom: 5),
+                child: Text("-: "+ widget.subjectName.toString()+" :-",style: GoogleFonts.ubuntu(fontSize: 16,fontWeight: FontWeight.w500,fontStyle: FontStyle.italic ), )),
+               
               booksList(),
-               Text("Notes",style: AppTheme.pageHeading2,),
-              notesList(),
-              Text("Syllabus"),
-              Container(child: InkWell(
-                child: Icon(Icons.picture_as_pdf,size: 100,),
-                onTap: (){
+              //  Text("Notes",style: AppTheme.pageHeading2,),
+              // notesList(),
+             
+              Container( child: InkWell(
+                child:GFButton(
+                  size: 50,
+                  
+                  color: Colors.amber.shade200,
+                  textColor: Colors.black,
+                  text: "View Syllabus",icon: Icon(Icons.description_outlined),
+                  onPressed: (){
                   opentDriveLink(global.syllabus.toString());
-                },
+                })
+                 
               ),),
             ],
           )
@@ -51,7 +61,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
           padding:  EdgeInsets.all(5),
           itemBuilder: (contex, index) {
             return Padding(
-              padding:  EdgeInsets.all(2.0),
+              padding:  EdgeInsets.all(3.0),
               child: InkWell(
                 onTap: () {
                    opentDriveLink(widget.books[index]["url"]);
@@ -62,8 +72,20 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Padding(
-                      padding:  EdgeInsets.all(2.0),
-                      child: Text(widget.books[index]["name"].toString(),style: AppTheme.containText1,),
+                      padding:  EdgeInsets.all(3.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(widget.books[index]["name"].toString(),style:GoogleFonts.ibmPlexSans(),overflow: TextOverflow.ellipsis,maxLines: 5,),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                            IconButton(onPressed: (){}, icon:Icon(Icons.download),tooltip: "download file", ),
+                            IconButton(onPressed: (){
+                              opentDriveLink(widget.books[index]["url"]);
+                            }, icon:Icon(Icons.open_in_new_rounded),tooltip: "open file",),
+                          ],)
+                        ],
+                      ),
                     ),
                     decoration: BoxDecoration(
                         color: Colors.amber.shade200,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:study_buddy/APIs/Api.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
@@ -20,7 +21,7 @@ class _SubjectListPageState extends State<SubjectListPage> {
   List<String> semister = [""];
   String sem = "";
   List<dynamic> subjectsData = [];
-  List<dynamic> booksData=[];
+  List<dynamic> booksData = [];
   @override
   void initState() {
     init();
@@ -53,7 +54,7 @@ class _SubjectListPageState extends State<SubjectListPage> {
   getApisData() async {
     var res = await StudyBuddyApis().getAllData(widget.dept, widget.year, sem);
     setState(() {
-      subjectsData=[];
+      subjectsData = [];
     });
     subjectsData.addAll(res);
     print(global.syllabus);
@@ -69,7 +70,7 @@ class _SubjectListPageState extends State<SubjectListPage> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: StudyBuddyAppBar(
-            title: "Choose Course",
+            title: "Subjects",
           )),
       body: isLoading
           ? Center(
@@ -77,8 +78,15 @@ class _SubjectListPageState extends State<SubjectListPage> {
             )
           : Column(
               children: [
-                Center(child: Padding(padding: const EdgeInsets.all(8.0),
-                  child: Text("Subjects for:\n" +widget.year.toString() +" " +widget.dept.toString(), style: AppTheme.pageHeading1,),
+                Center(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("-: "+
+                    widget.year.toString().toUpperCase() +
+                        " " +
+                        widget.dept.toString()+" :-",
+                    style: AppTheme.pageHeading1,
+                  ),
                 )),
                 Container(
                   margin: EdgeInsets.only(left: 20, right: 20),
@@ -90,7 +98,7 @@ class _SubjectListPageState extends State<SubjectListPage> {
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 20)),
                     hint: Text(
-                      '$sem',
+                      '$sem',style: GoogleFonts.lato(color: Colors.black)
                     ),
                     isExpanded: true,
                     items: semister.map((String value) {
@@ -104,14 +112,14 @@ class _SubjectListPageState extends State<SubjectListPage> {
                     onChanged: (val) {
                       setState(() {
                         sem = val.toString();
-                        isLoading=true;
+                        isLoading = true;
                       });
                       getApisData();
                       print(val);
                     },
                   ),
                 ),
-                
+                SizedBox(height: 10,),
                 gridContainers(),
               ],
             ),
@@ -134,14 +142,15 @@ class _SubjectListPageState extends State<SubjectListPage> {
               return InkWell(
                 onTap: () {
                   setState(() {
-                    booksData=[];
+                    booksData = [];
                   });
                   booksData.addAll(subjectsData[index]["books"]);
+                  var subject=subjectsData[index]["subject"];
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              StudyMaterialListPage(books:booksData)));
+                              StudyMaterialListPage(books: booksData,subjectName:subject)));
                 },
                 child: Container(
                   padding: EdgeInsets.only(left: 5, right: 2),
@@ -149,7 +158,7 @@ class _SubjectListPageState extends State<SubjectListPage> {
                   child: Center(
                     child: Text(
                       subjectsData[index]["subject"].toString(),
-                      style: TextStyle(fontFamily: "roboto"),
+                      style: GoogleFonts.roboto(fontWeight: FontWeight.w600,fontSize: 14),
                     ),
                   ),
                   decoration: BoxDecoration(

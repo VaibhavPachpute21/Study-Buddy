@@ -39,10 +39,10 @@ dependencies:
   path_provider: ^2.0.9
   permission_handler: ^9.0.1
   syncfusion_flutter_pdfviewer: ^19.4.52-beta
-  advance_pdf_viewer: ^2.0.1
   http: ^0.13.4
   url_launcher: ^6.0.20
-  webview_flutter: ^3.0.1
+  google_fonts: ^2.3.1
+
 
 
 dev_dependencies:
@@ -85,24 +85,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: lato
-      fonts:
-        - asset: assets/fonts/Lato-Regular.ttf
-        - asset: assets/fonts/Lato-Bold.ttf
-          weight: 700
-    - family: roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Medium.ttf
-    - family: robotomono
-      fonts:
-        - asset: assets/fonts/RobotoMono-Medium.ttf
-          weight: 700
-    - family: ubuntu
-      fonts:
-        - asset: assets/fonts/Ubuntu-Regular.ttf
-          weight: 700
-
   # fonts:
   #   - family: Schyler
   #     fonts:
