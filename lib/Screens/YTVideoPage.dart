@@ -26,108 +26,33 @@ class _YTVideoPageState extends State<YTVideoPage> {
   bool loading = false;
   double progress = 0;
   late File pdfFile;
-  List<String> _sender = ['Sending To Myself', 'Sending to Family', 'Other'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: loading
-          ? Center(
-              child: LinearProgressIndicator(
-                minHeight: 10,
-                value: progress,
-              ),
-            )
-          : Column(
-              children: [
-                Center(
-                  child: GFButton(
-                    onPressed: () async {
-                    var res = await StudyBuddyApis().getAllData("COMPUTER","Second Year","Fourth Semester");
-                      print(res.length );
-                      for(int i=0;i<res.length;i++){
-                        print(res[i]["subject"]);
-                        //print(res[i]["books"][0]["url"].toString().replaceAll("https://drive.google.com/file/d/", "").replaceAll("/view?usp=sharing", ""));
-                      }
-
-
-                    },
-                    text: "testing",
-                  ),
-                ),
-                
-               Container(
-                 margin: EdgeInsets.only(left: 20,right: 20),
-                 decoration: BoxDecoration(
-                   border: Border.all(),
-                   borderRadius: BorderRadius.circular(50)
-                 ),
-                 child: DropdownButtonFormField<String>(
-                       decoration: InputDecoration(
-                        border: InputBorder.none,
-                         contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 20)
-
-                        ),
-                      hint: Text('Select Sender', ),
-                      isExpanded: true,
-                      items: _sender.map((String value) {
-                        return DropdownMenuItem<String>(
-
-                          value: value,
-                          child: new Text(
-
-                            value,
-                           
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (val) {print(val);},
-                    ),
-               ),
-                
-                GFButton(
-                  color: Colors.amber,
-                  text: "Create DIR",
-                  onPressed: () {
-                    downloadFile(u);
-                  },
-                )
-              ],
-            ),
+       body:Center(child: Text("Work in progress..."),) 
+      // loading
+      //     ? Center(
+      //         child: LinearProgressIndicator(
+      //           minHeight: 10,
+      //           value: progress,
+      //         ),
+      //       )
+      //     : Column(
+      //         children: [
+      //           GFButton(
+      //             color: Colors.amber,
+      //             text: "Create DIR",
+      //             onPressed: () {
+      //               downloadFile(u);
+      //             },
+      //           )
+      //         ],
+      //       ),
     );
   }
 
 
-
-
-  // testing() async {
-  //   final response = await http.get(Uri.parse(u));
-  //   final bytes = response.bodyBytes;
-  //   var dir = await getExternalStorageDirectory();
-  //   List paths = dir!.path.split("/");
-  //   print(paths);
-  //   print(dir);
-  //   String newPath = "";
-  //   for (int x = 1; x < paths.length; x++) {
-  //     String folder = paths[x];
-  //     if (folder != "Android") {
-  //       newPath += "/" + folder;
-  //     } else {
-  //       break;
-  //     }
-  //   }
-  //   newPath = newPath + "/StudyBuddy";
-  //   dir = Directory(newPath);
-  //   print(dir);
-  //   final filename = u.substring(u.lastIndexOf("/") + 1);
-  //   File file = File(dir.path + "/$filename");
-  //   print(file.path);
-  //   await file.writeAsBytes(bytes, flush: true);
-  // setState(() {
-  //   pdfFile=file;
-  // });
-    
-  // }
 
   Future<bool> saveVideo(String url, String fileName) async {
     Directory directory;

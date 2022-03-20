@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/HomePage.dart';
 import 'package:study_buddy/Screens/ToDoListPage.dart';
@@ -38,7 +39,7 @@ class _HomeScreenState extends State<LandingPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title:Text( "Study Buddy",style: TextStyle(fontFamily: "roboto",fontSize:24, ),) ,
+        title:Text( "Study Buddy",style: AppTheme.appbarHeading,) ,
       ),
       body: Center(
         child: _widgetOption.elementAt(_currentIndex),

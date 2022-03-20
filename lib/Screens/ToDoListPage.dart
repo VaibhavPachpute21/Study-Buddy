@@ -15,11 +15,8 @@ class _ToDoListPageState extends State<ToDoListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: Column(
-        children: [
-      
-          
-        ],
+      body: Center(
+        child:Text("Work in progress...")
       ),
     );
   }
