@@ -42,9 +42,10 @@ class _HomeScreenState extends State<LandingPage> {
         title:Text( "Study Buddy",style: AppTheme.appbarHeading,) ,
       ),
       body: Center(
-        child: _widgetOption.elementAt(_currentIndex),
+        child: HomePage(),
+       // child: _widgetOption.elementAt(_currentIndex),
       ),
-      bottomNavigationBar:_buildBottomBar(),
+      //bottomNavigationBar:_buildBottomBar(),
      // bottomNavigationBar: bottomNav(),
     );
   }
