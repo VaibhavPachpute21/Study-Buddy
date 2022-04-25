@@ -38,13 +38,15 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
             )),
         body: loading
             ? Container(
-              padding: EdgeInsets.only(left: 5,right: 5),
+                padding: EdgeInsets.only(left: 5, right: 5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text("Downloading..."),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     LinearProgressIndicator(
                       minHeight: 15,
                       value: progress,
@@ -52,7 +54,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
                   ],
                 ),
               )
-            : Column(
+            : ListView(
                 children: [
                   Container(
                       padding:
@@ -67,19 +69,26 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
 
                   booksList(),
                   //  Text("Notes",style: AppTheme.pageHeading2,),
-                  // notesList(),
-                  SizedBox(height: 10,),
-                  Container(
-                    child: InkWell(
-                        child: GFButton(
-                            size: 50,
-                            color: Colors.amber.shade200,
-                            textColor: Colors.black,
-                            text: "View Syllabus",
-                            icon: Icon(Icons.description_outlined),
-                            onPressed: () {
-                              opentDriveLink(global.syllabus.toString());
-                            })),
+                  //notesList(),
+                  questionPapersList(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        child: InkWell(
+                            child: GFButton(
+                                size: 50,
+                                color: Colors.amber.shade200,
+                                textColor: Colors.black,
+                                text: "View Syllabus",
+                                icon: Icon(Icons.description_outlined),
+                                onPressed: () {
+                                  opentDriveLink(global.syllabus.toString());
+                                })),
+                      ),
+                    ],
                   ),
                 ],
               ));
@@ -93,55 +102,75 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
           itemCount: widget.books.length,
           padding: EdgeInsets.all(5),
           itemBuilder: (contex, index) {
-            return Padding(
-              padding: EdgeInsets.all(3.0),
-              child: InkWell(
-                onTap: () {
-                  opentDriveLink(widget.books[index]["url"]);
-                  //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
-                },
-                child: SizedBox(
-                  width: 150,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.all(3.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.books[index]["name"].toString(),
-                            style: GoogleFonts.ibmPlexSans(),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  downloadFile(
-                                      widget.books[index]["url"].toString(),
-                                      widget.books[index]["name"]);
-                                },
-                                icon: Icon(Icons.download),
-                                tooltip: "download file",
+            return Container(
+              child: Padding(
+                padding: EdgeInsets.all(3.0),
+                child: InkWell(
+                  onTap: () {
+                    opentDriveLink(widget.books[index]["url"]);
+                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage()) );
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 1, right: 1),
+                              color: Color.fromARGB(131, 0, 0, 0),
+                              child: Text(
+                                widget.books[index]["name"].toString(),
+                                textAlign: TextAlign.justify,
+                                style: GoogleFonts.ibmPlexSans(
+                                  color: Colors.white,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 5,
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  opentDriveLink(widget.books[index]["url"]);
-                                },
-                                icon: Icon(Icons.open_in_new_rounded),
-                                tooltip: "open file",
+                            ),
+                            Container(
+                              color: Color.fromARGB(224, 255, 255, 255),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      downloadFile(
+                                          widget.books[index]["url"].toString(),
+                                          widget.books[index]["name"]);
+                                    },
+                                    icon: Icon(
+                                      Icons.download,
+                                    ),
+                                    tooltip: "download file",
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      opentDriveLink(
+                                          widget.books[index]["url"]);
+                                    },
+                                    icon: Icon(Icons.open_in_new_rounded),
+                                    tooltip: "open file",
+                                  ),
+                                ],
                               ),
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("./assets/images/cover.jpg"),
+                              fit: BoxFit.cover),
+                          color: Colors.amber.shade200,
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(15)),
                     ),
-                    decoration: BoxDecoration(
-                        color: Colors.amber.shade200,
-                        borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
               ),
@@ -172,7 +201,6 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
                         "NotesPDF name at index value $index",
-                       
                       ),
                     ),
                     decoration: BoxDecoration(
@@ -185,6 +213,129 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
           }),
     );
   }
+
+  questionPapersList() {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.books.length,
+          padding: const EdgeInsets.all(5),
+          itemBuilder: (contex, index) {
+            return Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: InkWell(
+                onTap: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (contex)=>PDFViewerPage( url:"https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf")));
+                },
+                child: SizedBox(
+                  width: 100,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        "QuestionPaper at index value $index",
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.amber.shade200,
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+              ),
+            );
+          }),
+    );
+  }
+
+// Questionpapers widget as books widget
+  /**
+    questionPapersList() {
+    return SizedBox(
+      height: 200,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.books.length,
+          padding: EdgeInsets.all(5),
+          itemBuilder: (contex, index) {
+            return Container(
+              child: Padding(
+                padding: EdgeInsets.all(3.0),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage(url: 'https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf',)) );
+                  },
+                  child: SizedBox(
+                    width: 150,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 1, right: 1),
+                              color: Color.fromARGB(131, 0, 0, 0),
+                              child: Text(
+                                widget.books[index]["name"].toString(),
+                                textAlign: TextAlign.justify,
+                                style: GoogleFonts.ibmPlexSans(
+                                  color: Colors.white,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 5,
+                              ),
+                            ),
+                            Container(
+                              color: Color.fromARGB(224, 255, 255, 255),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      downloadFile(
+                                          "https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf",
+                                          "testQuestionPaper");
+                                    },
+                                    icon: Icon(
+                                      Icons.download,
+                                    ),
+                                    tooltip: "download file",
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFViewerPage(url: 'https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf',)) );
+                 
+                                    },
+                                    icon: Icon(Icons.open_in_new_rounded),
+                                    tooltip: "open file",
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          // image: DecorationImage(
+                          //     image: AssetImage("./assets/images/cover.jpg"),
+                          //     fit: BoxFit.cover),
+                          color: Colors.amber.shade200,
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(15)),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+    );
+  }
+
+   */
 
   opentDriveLink(url) async {
     if (await canLaunch(url)) {
@@ -204,7 +355,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
       loading = true;
       progress = 0;
     });
-    bool downloaded = await saveVideo("$docId", "$name.pdf");
+    bool downloaded = await savePDFFile("$docId", "$name.pdf");
     if (downloaded) {
       print("File Downloaded");
       GFToast.showToast("File Downloaded", context);
@@ -217,7 +368,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
     });
   }
 
-  Future<bool> saveVideo(String docId, String fileName) async {
+  Future<bool> savePDFFile(String docId, String fileName) async {
     String url = "https://drive.google.com/uc?id=$docId&export=download";
     Directory directory;
     try {
