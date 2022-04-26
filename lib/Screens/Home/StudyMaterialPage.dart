@@ -27,7 +27,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
   bool loading = false;
   double progress = 0;
   final Dio dio = Dio();
-
+  List questionPapersLink=["https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_MAY19.pdf","https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf","https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,7 +226,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
               padding: const EdgeInsets.all(2.0),
               child: InkWell(
                 onTap: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (contex)=>PDFViewerPage( url:"https://muquestionpapers.com/storage/questionpapers/SE-Comps_SEM4_M4-CBCGS_DEC19.pdf")));
+                 Navigator.push(context, MaterialPageRoute(builder: (contex)=>PDFViewerPage( url:"${questionPapersLink[index]}")));
                 },
                 child: SizedBox(
                   width: 100,
@@ -235,7 +235,7 @@ class _StudyMaterialListPageState extends State<StudyMaterialListPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
-                        "QuestionPaper at index value $index",
+                        "${widget.subjectName} Paper ${index+1}",
                       ),
                     ),
                     decoration: BoxDecoration(

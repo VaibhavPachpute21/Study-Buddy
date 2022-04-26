@@ -42,31 +42,40 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Text(
-                "Selected Stream ",
-                style: GoogleFonts.ibmPlexSans(
-                    fontSize: 22, fontWeight: FontWeight.w400),
-              ),
-              Text(
-                departmentList[_currentIndex].toString(),
-                style: GoogleFonts.ibmPlexSans(
-                    fontSize: 22, fontWeight: FontWeight.w500),
-              )
-            ],
-          ),
-          Column(
-            children: [
-              gridContainers(),
-              _choicechip(),
-            ],
-          ),
-        ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("./assets/images/bg.jpg"),
+                fit: BoxFit.cover)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Text(
+                  "Selected Stream ",
+                  style: GoogleFonts.ibmPlexSans(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400),
+                ),
+                Text(
+                  departmentList[_currentIndex].toString(),
+                  style: GoogleFonts.ibmPlexSans(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500),
+                )
+              ],
+            ),
+            Column(
+              children: [
+                gridContainers(),
+                _choicechip(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -108,7 +117,10 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.center,
                   child: Text(
                     yearOfStudy[index],
-                    style: GoogleFonts.robotoMono(fontSize: 18,fontStyle: FontStyle.normal,fontWeight: FontWeight.w400 ),
+                    style: GoogleFonts.robotoMono(
+                        fontSize: 18,
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.w400),
                   ),
                   decoration: BoxDecoration(
                       color: Colors.orange.shade100,

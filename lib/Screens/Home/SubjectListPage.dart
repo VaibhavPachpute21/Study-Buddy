@@ -76,53 +76,59 @@ class _SubjectListPageState extends State<SubjectListPage> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("-: "+
-                    widget.year.toString().toUpperCase() +
-                        " " +
-                        widget.dept.toString()+" :-",
-                    style: AppTheme.pageHeading1,
-                  ),
-                )),
-                Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(50)),
-                  child: DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 20)),
-                    hint: Text(
-                      '$sem',style: GoogleFonts.lato(color: Colors.black)
+          : Container(
+            decoration:BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("./assets/images/bg.jpg"),
+                fit: BoxFit.cover)),
+            child: Column(
+                children: [
+                  Center(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("-: "+
+                      widget.year.toString().toUpperCase() +
+                          " " +
+                          widget.dept.toString()+" :-",
+                      style: AppTheme.pageHeading1,
                     ),
-                    isExpanded: true,
-                    items: semister.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(
-                          value,
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        sem = val.toString();
-                        isLoading = true;
-                      });
-                      getApisData();
-                      print(val);
-                    },
+                  )),
+                  Container(
+                    margin: EdgeInsets.only(left: 20, right: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50)),
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 20)),
+                      hint: Text(
+                        '$sem',style: GoogleFonts.lato(color: Colors.white)
+                      ),
+                      isExpanded: true,
+                      items: semister.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(
+                            value,
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (val) {
+                        setState(() {
+                          sem = val.toString();
+                          isLoading = true;
+                        });
+                        getApisData();
+                        print(val);
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(height: 10,),
-                gridContainers(),
-              ],
-            ),
+                  SizedBox(height: 10,),
+                  gridContainers(),
+                ],
+              ),
+          ),
     );
   }
 
