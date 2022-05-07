@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
+import 'package:study_buddy/Screens/Drawer.dart';
 import 'package:study_buddy/Screens/Home/HomePage.dart';
 import 'package:study_buddy/Screens/ToDo/ToDoListPage.dart';
 import 'package:study_buddy/Screens/YTVideo/YTVideoPage.dart';
+import 'package:study_buddy/auth/google_auth.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  final  userData;
+  const LandingPage({Key? key, this.userData}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -26,6 +29,7 @@ class _HomeScreenState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
+    print(widget.userData);
   }
 
   void _onItemTapped(int index) {
@@ -41,6 +45,7 @@ class _HomeScreenState extends State<LandingPage> {
         elevation: 0,
         title:Text( "Study Buddy",style: AppTheme.appbarHeading,) ,
       ),
+      drawer: MyDrawer(),
       body: Center(
        
         child: _widgetOption.elementAt(_currentIndex),

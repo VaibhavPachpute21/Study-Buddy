@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:study_buddy/AppTheme.dart';
+import 'package:study_buddy/Screens/LandingPage.dart';
 
 
 //StudyBuddy's AppBar
@@ -440,6 +443,5 @@ class CustomChoiceChipBarItem {
     this.inactiveColor,
   });
 }
-
 
 

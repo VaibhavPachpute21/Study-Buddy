@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/LandingPage.dart';
+import 'package:study_buddy/SplashScreen.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn();
 final FirebaseAuth auth = FirebaseAuth.instance;
@@ -39,7 +41,7 @@ void signInWithGoogle(BuildContext context) async {
 
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => LandingPage(),
+              builder: (context) => SplashScrren(),
             ),
           );
         } else {
@@ -49,7 +51,7 @@ void signInWithGoogle(BuildContext context) async {
 
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => LandingPage(),
+              builder: (context) => SplashScrren(),
             ),
           );
         }
