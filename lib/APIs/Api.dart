@@ -13,3 +13,12 @@ class StudyBuddyApis {
     return jsonResponse["$year"]["$sem"];
   }
 }
+
+
+
+///update function 
+///.update ({
+///firstYear:{
+/// 
+///     }
+/// })

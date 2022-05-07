@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:study_buddy/AppTheme.dart';
 import 'package:study_buddy/CommonWidgets.dart';
 import 'package:study_buddy/Screens/Home/HomePage.dart';
-import 'package:study_buddy/Screens/ToDoListPage.dart';
-import 'package:study_buddy/Screens/YTVideoPage.dart';
+import 'package:study_buddy/Screens/ToDo/ToDoListPage.dart';
+import 'package:study_buddy/Screens/YTVideo/YTVideoPage.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<LandingPage> {
   final List<Widget> _widgetOption = [
     const HomePage(),
     const YTVideoPage(),
-    const ToDoListPage()
+    ToDoListPage()
   ];
 
   @override
@@ -42,10 +42,10 @@ class _HomeScreenState extends State<LandingPage> {
         title:Text( "Study Buddy",style: AppTheme.appbarHeading,) ,
       ),
       body: Center(
-        child: HomePage(),
-       // child: _widgetOption.elementAt(_currentIndex),
+       
+        child: _widgetOption.elementAt(_currentIndex),
       ),
-      //bottomNavigationBar:_buildBottomBar(),
+      bottomNavigationBar:_buildBottomBar(),
      // bottomNavigationBar: bottomNav(),
     );
   }
