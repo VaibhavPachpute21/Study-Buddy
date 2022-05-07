@@ -35,7 +35,7 @@ class _ToDoListPageState extends State<ToDoListPage> {
         backgroundColor: Colors.grey[700],
       ),
       body: Center(
-        child:Text("Work in progress...")
+        child:Text("Notes Will Appear here")
       ),
     );
   }

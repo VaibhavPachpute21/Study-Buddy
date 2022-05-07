@@ -25,7 +25,7 @@ class _AddNoteState extends State<AddNote> {
             textStyle: GoogleFonts.robotoMono(fontSize: 20 ),
             padding: EdgeInsets.only(right:8 ),
             onPressed: (){
-
+              saveNote();
           })
         ],
       ), 
@@ -52,10 +52,9 @@ class _AddNoteState extends State<AddNote> {
                           fontSize: 32.0,
                           fontFamily: "lato",
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey,
                         ),
                         onChanged: (_val) {
-                         
+                         title=_val;
                         },
                       ),
                       //
@@ -69,10 +68,9 @@ class _AddNoteState extends State<AddNote> {
                           style: TextStyle(
                             fontSize: 20.0,
                             fontFamily: "lato",
-                            color: Colors.grey,
                           ),
                           onChanged: (_val) {
-                           
+                           description=_val;
                           },
                           maxLines: 20,
                         ),
@@ -86,4 +84,10 @@ class _AddNoteState extends State<AddNote> {
         ),     
     );
   }
+
+  saveNote(){
+    print(title+" "+ description);
+  }
+
+
 }
