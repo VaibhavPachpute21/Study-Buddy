@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/components/button/gf_button.dart';
+import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddNote extends StatefulWidget {
@@ -11,8 +14,8 @@ class AddNote extends StatefulWidget {
 
 class _AddNoteState extends State<AddNote> {
 
-  late String title;
-  late String description;
+   String? title;
+   String? description;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +89,21 @@ class _AddNoteState extends State<AddNote> {
   }
 
   saveNote(){
-    print(title+" "+ description);
+    if(title=="" || title==null){
+      GFToast.showToast("Please Give Title", context);
+    }else if(description =="" || description==null){
+      GFToast.showToast("Description can't be empty!", context);
+    }else{
+         CollectionReference ref=FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection("notes");
+    ref.add({
+      'title':title,
+      'description':description,
+      'created':DateTime.now()
+    });
+    Navigator.pop(context);
+    }
+ 
+
   }
 
 
