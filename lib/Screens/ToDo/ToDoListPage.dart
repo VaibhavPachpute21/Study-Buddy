@@ -66,9 +66,9 @@ class _ToDoListPageState extends State<ToDoListPage> {
             if (snapshot.data?.docs.length == 0 || snapshot.data?.docs==null) {
               return Center(
                 child: Text(
-                  "You have no saved Notes !",
+                  "You have no saved Notes!",
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: Colors.black,
                   ),
                 ),
               );
