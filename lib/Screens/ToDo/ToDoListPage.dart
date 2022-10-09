@@ -20,14 +20,16 @@ class ToDoListPage extends StatefulWidget {
 }
 
 class _ToDoListPageState extends State<ToDoListPage> {
-
   final _inactiveColor = Colors.grey;
   int _currentIndex = 0;
-    CollectionReference ref = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection("notes");
+  CollectionReference ref = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection("notes");
 
   List<Color> myColors = [
     Colors.yellow,
-    Colors.red ,
+    Colors.red,
     Colors.green,
     Colors.deepPurple,
     Colors.purple,
@@ -59,11 +61,12 @@ class _ToDoListPageState extends State<ToDoListPage> {
         ),
         backgroundColor: Colors.grey[700],
       ),
-      body:FutureBuilder<QuerySnapshot>(
+      body: FutureBuilder<QuerySnapshot>(
         future: ref.get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data?.docs.length == 0 || snapshot.data?.docs==null) {
+            if (snapshot.data?.docs.length == 0 ||
+                snapshot.data?.docs == null) {
               return Center(
                 child: Text(
                   "You have no saved Notes!",
@@ -74,17 +77,18 @@ class _ToDoListPageState extends State<ToDoListPage> {
               );
             }
 
-            return   GridView.builder(
+            return GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 20),
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 20),
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 Random random = new Random();
                 Color bg = myColors[random.nextInt(6)];
-                Map data = snapshot.data!.docs[index].data() as Map;//snapshot.data!.docs[index].data() as Map;
+                Map data = snapshot.data!.docs[index].data()
+                    as Map; //snapshot.data!.docs[index].data() as Map;
                 DateTime mydateTime = data['created'].toDate();
                 String formattedTime =
                     DateFormat.yMMMd().add_jm().format(mydateTime);
@@ -147,7 +151,6 @@ class _ToDoListPageState extends State<ToDoListPage> {
           }
         },
       ),
-    
     );
   }
 
@@ -193,78 +196,78 @@ class _ToDoListPageState extends State<ToDoListPage> {
     );
   }
 
-  newBody(){
-     CollectionReference ref=FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection("notes");
-  return  FutureBuilder<QuerySnapshot>(
-             future:ref.orderBy('Time').get(),
-                builder: (context,snapshot){
-                if(snapshot.hasData){
-                  return ListView.builder(
-                    physics: ClampingScrollPhysics(),
-                    padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
-                       shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context,index){
-                      Map data= snapshot.data!.docs[index].data() as Map;
-                      DateTime mynote_time=data['Time'].toDate();
-                      String formattedTime =
+  newBody() {
+    CollectionReference ref = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("notes");
+    return FutureBuilder<QuerySnapshot>(
+        future: ref.orderBy('Time').get(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                physics: ClampingScrollPhysics(),
+                padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
+                shrinkWrap: true,
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  Map data = snapshot.data!.docs[index].data() as Map;
+                  DateTime mynote_time = data['Time'].toDate();
+                  String formattedTime =
                       DateFormat.yMMMd().add_jm().format(mynote_time);
-                      return Column(
-                        children: [
-                          Card(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
-                                  child: Text(
-                                      "${data['title']}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 20,
-                                    ),
-                                  ),
+                  return Column(
+                    children: [
+                      Card(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
+                              child: Text(
+                                "${data['title']}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
-                                  child: Text(
-                                    "${data['description']}",
-                                    style: GoogleFonts.lato(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text(
-                                    formattedTime
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                            borderOnForeground: true,
-                            shadowColor: Colors.blueAccent,
-                            color: Colors.grey[100],
-                            elevation: 10,
-                          ),
-                        ],
-                      );
-                      }
-                      );
-                }
-                else if(snapshot==null){
-                  return Text('Please Enter some notes');
-                }
-                else return Padding(
-                  padding: EdgeInsets.fromLTRB(150, 200, 0, 50),
-                  child:Text("Noooo"),
-                );
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
+                              child: Text(
+                                "${data['description']}",
+                                style: GoogleFonts.lato(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.bottomRight,
+                              child: Text(formattedTime),
+                            )
+                          ],
+                        ),
+                        borderOnForeground: true,
+                        shadowColor: Colors.blueAccent,
+                        color: Colors.grey[100],
+                        elevation: 10,
+                      ),
+                    ],
+                  );
                 });
+          } else if (snapshot == null) {
+            return Text('Please Enter some notes');
+          } else
+            return Padding(
+              padding: EdgeInsets.fromLTRB(150, 200, 0, 50),
+              child: Text("Noooo"),
+            );
+        });
   }
 
   getNotes() {
-    CollectionReference ref=FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection("notes");
-    var res=ref.get();
-
-
+    CollectionReference ref = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("notes");
+    var res = ref.get();
   }
 }
