@@ -53,15 +53,29 @@ class _SubjectListPageState extends State<SubjectListPage> {
 
   getApisData() async {
     var res = await StudyBuddyApis().getAllData(widget.dept, widget.year, sem);
-    setState(() {
-      subjectsData = [];
-    });
-    subjectsData.addAll(res);
-    print(global.syllabus);
-    print(res.length);
-    setState(() {
-      isLoading = false;
-    });
+    try {
+      if (res != null) {
+        setState(() {
+          subjectsData = [];
+        });
+        subjectsData.addAll(res);
+        print(global.syllabus);
+        print(res.length);
+        setState(() {
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading=false;
+          subjectsData=[];
+        });
+
+      }
+    } catch (e) {
+      print("err");
+      print(e);
+      print(res);
+    }
   }
 
   @override
@@ -76,20 +90,22 @@ class _SubjectListPageState extends State<SubjectListPage> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Container(
-            decoration:BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("./assets/images/bg.jpg"),
-                fit: BoxFit.cover)),
-            child: Column(
+          :subjectsData== null ? Center(child: Text("Something Went wrong...!"),): Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("./assets/images/bg.jpg"),
+                      fit: BoxFit.cover)),
+              child: Column(
                 children: [
                   Center(
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("-: "+
-                      widget.year.toString().toUpperCase() +
+                    child: Text(
+                      "-: " +
+                          widget.year.toString().toUpperCase() +
                           " " +
-                          widget.dept.toString()+" :-",
+                          widget.dept.toString() +
+                          " :-",
                       style: AppTheme.pageHeading1,
                     ),
                   )),
@@ -102,9 +118,8 @@ class _SubjectListPageState extends State<SubjectListPage> {
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(10, 15, 10, 20)),
-                      hint: Text(
-                        '$sem',style: GoogleFonts.lato(color: Colors.white)
-                      ),
+                      hint: Text('$sem',
+                          style: GoogleFonts.lato(color: Colors.white)),
                       isExpanded: true,
                       items: semister.map((String value) {
                         return DropdownMenuItem<String>(
@@ -124,11 +139,13 @@ class _SubjectListPageState extends State<SubjectListPage> {
                       },
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   gridContainers(),
                 ],
               ),
-          ),
+            ),
     );
   }
 
@@ -151,12 +168,12 @@ class _SubjectListPageState extends State<SubjectListPage> {
                     booksData = [];
                   });
                   booksData.addAll(subjectsData[index]["books"]);
-                  var subject=subjectsData[index]["subject"];
+                  var subject = subjectsData[index]["subject"];
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              StudyMaterialListPage(books: booksData,subjectName:subject)));
+                          builder: (context) => StudyMaterialListPage(
+                              books: booksData, subjectName: subject)));
                 },
                 child: Container(
                   padding: EdgeInsets.only(left: 5, right: 2),
@@ -164,7 +181,8 @@ class _SubjectListPageState extends State<SubjectListPage> {
                   child: Center(
                     child: Text(
                       subjectsData[index]["subject"].toString(),
-                      style: GoogleFonts.roboto(fontWeight: FontWeight.w600,fontSize: 14),
+                      style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w600, fontSize: 14),
                     ),
                   ),
                   decoration: BoxDecoration(
